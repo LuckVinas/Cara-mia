@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Villana Favorita</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at top, #1a001f, #000000);
+      color: #e6d6ff;
+      font-family: 'Courier New', monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .container {
+      max-width: 800px;
+      padding: 20px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      background: rgba(0,0,0,0.6);
+      box-shadow: 0 0 30px rgba(128, 0, 255, 0.3);
+      display: none;
+    }
+
+    h1 {
+      text-align: center;
+      color: #c084fc;
+      margin-bottom: 20px;
+    }
+
+    #text {
+      white-space: pre-wrap;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 10px;
+      background-color: #c084fc;
+      margin-left: 5px;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 50%, 100% { opacity: 1; }
+      25%, 75% { opacity: 0; }
+    }
+
+    .footer {
+      margin-top: 20px;
+      text-align: right;
+      font-size: 14px;
+      color: #aaa;
+    }
+
+    /* Pantalla inicial */
+    .intro {
+      position: absolute;
+      text-align: center;
+    }
+
+    .btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: transparent;
+      border: 1px solid #c084fc;
+      color: #c084fc;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+
+    .btn:hover {
+      background: #c084fc;
+      color: black;
+    }
+
+    /* partículas simples */
+    .particle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: #c084fc;
+      opacity: 0.7;
+      animation: float 10s linear infinite;
+    }
+
+    @keyframes float {
+      from { transform: translateY(100vh); }
+      to { transform: translateY(-10vh); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Música -->
+  <audio id="bgm" loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Pantalla inicial -->
+  <div class="intro" id="intro">
+    <h1>Acceso Restringido</h1>
+    <p>Solo personal autorizado puede continuar...</p>
+    <button class="btn" onclick="iniciar()">Entrar</button>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="container" id="main">
+    <h1>Expediente: il mio cattivo</h1>
+    <div id="text"></div><span class="cursor"></span>
+    <div class="footer">Sistema cargando...</div>
+  </div>
+
+  <script>
+    // generar partículas
+    for (let i = 0; i < 50; i++) {
+      let p = document.createElement("div");
+      p.className = "particle";
+      p.style.left = Math.random() * 100 + "vw";
+      p.style.animationDuration = (5 + Math.random() * 10) + "s";
+      document.body.appendChild(p);
+    }
+
+    const message = `
+
+Un día sin que lo esperara, sin que tuviera la más mínima idea apareciste en mi vida. \n
+Y hoy mi flaquita no quiero que salgas de ella, hoy iluminas mis días,\n
+Hoy haces que te quiera cada vez más, que me este volviendo loco por ti, por ver tu carita \n
+Por tenerte en mis brazos, por ver tus ojos y perderme en tu mirada, por verte sonreír. \n
+Me llenaste de detalles , de atenciones, de caricias y nada de eso te lo tuve que pedir. \n
+Descubrí que me podía embriagar de tu aroma, de tu sonrisa tierna pero a la vez malvada como solo tu sabes hacerlo. \n
+Que despertar y ver tu cara es el mejor ¡Buenos días!,\n
+Que puedo ser querido en varios idiomas y de diferentes maneras, que saber que te gusto y me quieras \n
+me hace muy feliz, que no necesito ocultar mi ser porque lo aceptas tal como es, \n
+no te puedo prometer que soy o seré una buena persona \n
+pero si que te cuidare, que me importas, que te quiero tanto \n
+y que seré ese ser malvado que te protege si así lo quieres, el que puede comerte, besarte, tomarte en sus manos,\n
+ pero también este a tu disposición.\n
+
+Ma vie , mio caro, cuore, mi flaquita hermosa, te quiero tanto.\n
+\n
+\n 
+\n
+\n
+\n
+\n
+\n
+\n
+\n
+\n
+\n
+\n
+\n`;
+
+    let index = 0;
+    const speed = 40;
+    const textElement = document.getElementById("text");
+
+    function typeWriter() {
+      if (index < message.length) {
+        textElement.textContent += message.charAt(index);
+        index++;
+        setTimeout(typeWriter, speed);
+      }
+    }
+
+    function iniciar() {
+      document.getElementById("intro").style.display = "none";
+      document.getElementById("main").style.display = "block";
+
+      document.getElementById("bgm").play();
+
+      alert("Acceso concedido...");
+
+      typeWriter();
+    }
+  </script>
+</body>
+</html>
